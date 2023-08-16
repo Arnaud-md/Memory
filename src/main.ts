@@ -1,4 +1,5 @@
 const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
+console.log("data");
 
 // Attention aux "as" qui règlent pas mal de soucis
 const app = document.querySelector('#app') as HTMLDivElement;
