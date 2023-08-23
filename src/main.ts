@@ -1,12 +1,14 @@
+let compt = 0;
+let partieFait = 0;
 const colores = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
 const butnStart = document.querySelector("#init-button") as HTMLButtonElement;
 //const butnTile = document.querySelector(".tile") as HTMLButtonElement;
 // Attention aux "as" qui règlent pas mal de soucis
 const appli = document.querySelector('#app') as HTMLDivElement;
 const body = document.body
+const head = document.querySelector("#col") as HTMLDivElement
 
-let compt = 0;
-let partieFait = 0;
+
 
 // Promises
 fetch("https://dog.ceo/api/breeds/image/random")
@@ -42,9 +44,8 @@ butnStart.addEventListener("click", () => {
 
 const btnReplay = document.createElement("button") as HTMLButtonElement
     btnReplay.textContent = "Recommenceer la partie"
-    btnReplay.addEventListener("click", ()=> {
-        partieFait++
-        
+    btnReplay.addEventListener("click", ()=> {      
+        partieFait+=1
         initi()
     })
 
@@ -52,6 +53,10 @@ function initi(){
     console.log('init')
     butnStart.remove();
     body.appendChild(btnReplay)
+    const compteur = document.createElement("p") as HTMLParagraphElement
+    appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
+
+    head.appendChild(compteur)
     compt++;
     //appli.innerHTML = `
     //    <p>${cpt}</p>
