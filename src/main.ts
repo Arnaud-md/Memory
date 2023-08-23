@@ -3,8 +3,10 @@ const butnStart = document.querySelector("#init-button") as HTMLButtonElement;
 //const butnTile = document.querySelector(".tile") as HTMLButtonElement;
 // Attention aux "as" qui règlent pas mal de soucis
 const appli = document.querySelector('#app') as HTMLDivElement;
+const body = document.body
 
 let compt = 0;
+let partieFait = 0;
 
 // Promises
 fetch("https://dog.ceo/api/breeds/image/random")
@@ -38,10 +40,18 @@ butnStart.addEventListener("click", () => {
     initi();
 });
 
+const btnReplay = document.createElement("button") as HTMLButtonElement
+    btnReplay.textContent = "Recommenceer la partie"
+    btnReplay.addEventListener("click", ()=> {
+        partieFait++
+        
+        initi()
+    })
 
 function initi(){
     console.log('init')
     butnStart.remove();
+    body.appendChild(btnReplay)
     compt++;
     //appli.innerHTML = `
     //    <p>${cpt}</p>
@@ -52,6 +62,7 @@ function initi(){
     //';
     tiles.forEach( tile => appli.appendChild(tile));
 
+    
     // Add the tiles to the app
     let nodeList = document.querySelectorAll(".tile");
     let elements = Array.from(nodeList);
