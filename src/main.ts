@@ -53,10 +53,9 @@ function initi(){
     console.log('init')
     butnStart.remove();
     body.appendChild(btnReplay)
-    const compteur = document.createElement("p") as HTMLParagraphElement
     appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
 
-    head.appendChild(compteur)
+   
     compt++;
     //appli.innerHTML = `
     //    <p>${cpt}</p>
