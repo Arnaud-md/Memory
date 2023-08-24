@@ -99,9 +99,9 @@ function initi(){
     console.log('init')
     butnStart.remove();
     body.appendChild(btnReplay);
-    
-    appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
     appli.appendChild(jeuDiv);
+    appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
+    
    
     compt++;
     let color1 = "1";
