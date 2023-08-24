@@ -1,11 +1,16 @@
+let compt = 0;
+let partieFait = 0;
 const colores = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
 //const butnStart = document.querySelector("#init-button") as HTMLButtonElement;
 //const butnTile = document.querySelector(".tile") as HTMLButtonElement;
 // Attention aux "as" qui règlent pas mal de soucis
-let compt = 0;
+
 let cptRemise = 0;
 
 const appli = document.querySelector('#app') as HTMLDivElement;
+const body = document.body
+const head = document.querySelector("#col") as HTMLDivElement
+
 
 const butnStart = document.createElement('button') as HTMLButtonElement;
 butnStart.innerText = "Commencer la partie";
@@ -70,9 +75,25 @@ const tiles = new Array(16).fill('').map( (_, i) => {
 
 
 
+// Add an event listener
+butnStart.addEventListener("click", () => {
+    initi();
+});
+
+const btnReplay = document.createElement("button") as HTMLButtonElement
+    btnReplay.textContent = "Recommenceer la partie"
+    btnReplay.addEventListener("click", ()=> {      
+        partieFait+=1
+        initi()
+    })
+
 function initi(){
     console.log('init')
     butnStart.remove();
+    body.appendChild(btnReplay)
+    appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
+
+   
     compt++;
     let color1 = "1";
     let color2 = "2";
@@ -109,8 +130,9 @@ function initi(){
     //    <div id = "disp">
     //';
 
-    //tiles.forEach( tile => appli.appendChild(tile));
+    tiles.forEach( tile => appli.appendChild(tile));
 
+    
     // Add the tiles to the app
 //    let nodeList = document.querySelectorAll(".tile");
 //    let elements = Array.from(nodeList);
