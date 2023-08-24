@@ -7,8 +7,15 @@ const butnStart = document.querySelector("#init-button") as HTMLButtonElement;
 const appli = document.querySelector('#app') as HTMLDivElement;
 const body = document.body
 const head = document.querySelector("#col") as HTMLDivElement
-
-
+const jeuDiv = document.createElement('div') as HTMLDivElement;
+jeuDiv.setAttribute("id","jeuDiv");
+jeuDiv.setAttribute("class", "argent");
+jeuDiv.style.width = "450px";
+jeuDiv.style.margin = "auto auto 30px auto";
+jeuDiv.style.display = "flex";
+jeuDiv.style.border = "1px solid black";
+jeuDiv.style.flexWrap = "wrap";
+jeuDiv.style.justifyContent = "space-between";
 
 // Promises
 fetch("https://dog.ceo/api/breeds/image/random")
@@ -25,6 +32,7 @@ const tiles = new Array(16).fill('').map( (_, i) => {
     tile.setAttribute("class", "tile")
     tile.style.width ="50px"
     tile.style.height = "50px"
+    tile.style.margin = "25px 25px 25px 25px";
     tile.style.backgroundColor = colores[Math.floor(i/2)]
     return tile
 })
@@ -52,9 +60,10 @@ const btnReplay = document.createElement("button") as HTMLButtonElement
 function initi(){
     console.log('init')
     butnStart.remove();
-    body.appendChild(btnReplay)
+    body.appendChild(btnReplay);
+    
     appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
-
+    appli.appendChild(jeuDiv);
    
     compt++;
     //appli.innerHTML = `
@@ -64,8 +73,8 @@ function initi(){
     //appli.innerHTML = '
     //    <div id = "disp">
     //';
-    tiles.forEach( tile => appli.appendChild(tile));
-
+    tiles.forEach( tile => jeuDiv.appendChild(tile));
+   
     
     // Add the tiles to the app
     let nodeList = document.querySelectorAll(".tile");
