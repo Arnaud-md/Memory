@@ -58,6 +58,7 @@ const tiles = new Array(16).fill('').map( (_, i) => {
     tile.setAttribute("class", "tile")
     tile.style.width ="50px"
     tile.style.height = "50px"
+    tile.style.border = "25px 25px 25px 25px"
     tile.style.backgroundColor = colores[Math.floor(i/2)]
     return tile
 })
@@ -81,7 +82,7 @@ function initi(){
 
     console.log("click1");
     
-    tiles.forEach( tile => appli.appendChild(tile));
+    tiles.forEach( tile => jeuDiv.appendChild(tile));
 
     // Add the tiles to the app
     let nodeList = document.querySelectorAll(".tile");
