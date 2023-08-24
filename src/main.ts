@@ -30,13 +30,6 @@ butnRemise.addEventListener("click", () => {
 })
 
 
-const jeuDiv = document.createElement('div') as HTMLElement;
-jeuDiv.setAttribute("id","jeuDiv");
-jeuDiv.setAttribute("class", "argent");
-jeuDiv.style.width = "450px";
-jeuDiv.style.margin = "auto auto 30px auto";
-jeuDiv.style.display = "flex";
-jeuDiv.style.border = "1px solid black";
 const jeuDiv = document.createElement('div') as HTMLDivElement;
 jeuDiv.setAttribute("id","jeuDiv");
 jeuDiv.setAttribute("class", "argent");
