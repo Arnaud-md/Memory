@@ -15,9 +15,9 @@ const head = document.querySelector("#col") as HTMLDivElement
 const butnStart = document.createElement('button') as HTMLButtonElement;
 butnStart.innerText = "Commencer la partie";
 //(typeof butnStart.textContent("Commencer la partie")==='string') && butnStart.textContent("Commencer la partie");
-butnStart.addEventListener("click", () => {
-    initi();
-});
+//butnStart.addEventListener("click", () => {
+    //initi();
+//});
 appli.appendChild(butnStart);
 
 const butnRemise = document.createElement("button") as HTMLButtonElement;
@@ -84,27 +84,38 @@ butnStart.addEventListener("click", () => {
 const btnReplay = document.createElement("button") as HTMLButtonElement
     btnReplay.textContent = "Recommenceer la partie"
     btnReplay.addEventListener("click", ()=> {      
-        partieFait+=1
-        initi()
+        partieFait+=1;
+        initi();
+        console.log("vous avez appuyé sur le bouton");
+        
     })
 
 function initi(){
     console.log('init')
     butnStart.remove();
-    body.appendChild(btnReplay);
-    appli.appendChild(jeuDiv);
-    appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
     
+    appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
+    appli.appendChild(btnReplay);
+    appli.appendChild(jeuDiv);
    
     compt++;
     let color1 = "1";
     let color2 = "2";
+    let couleur=colores;
     appli.appendChild(jeuDiv);
     appli.appendChild(butnRemise);
 
     console.log("click1");
     
-    tiles.forEach( tile => appli.appendChild(tile));
+    for(let j=0;j<tiles.length;j++) {
+        if(tiles[j].style.backgroundColor == "white") {
+            tiles[j].style.backgroundColor = couleur[j];
+            console.log(couleur[j]);
+            
+        }
+    }
+
+    tiles.forEach( tile => jeuDiv.appendChild(tile));
 
     // Add the tiles to the app
     let nodeList = document.querySelectorAll(".tile");
@@ -112,17 +123,20 @@ function initi(){
     elements.forEach( (element) => {
         //let i = 0;
         element.setAttribute("class", "not-revealed")
+        
         element.addEventListener("click", () => {
             element.setAttribute("class", "revealed");
             //color1 = getColor(tiles);
             let index = getIndex(tiles);
             //appli.innerHTML = '<p>' + color1+'</p>'
             if (index!=-1) {
+                couleur[index]=tiles[index].style.backgroundColor;
                 tiles[index].style.backgroundColor = "white";
             }
         })
 
     })
+    
 }
     //appli.innerHTML = `
     //    <p>${cpt}</p>
@@ -132,7 +146,7 @@ function initi(){
     //    <div id = "disp">
     //';
 
-    tiles.forEach( tile => jeuDiv.appendChild(tile));
+//    tiles.forEach( tile => jeuDiv.appendChild(tile));
    
     
     // Add the tiles to the app
