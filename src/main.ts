@@ -77,8 +77,7 @@ btnReplay.addEventListener("click", ()=> {
     partieFait+=1;
     init();
     seconde = 0
-    minute = 0
-    console.log("vous avez appuyé sur le bouton");       
+    minute = 0       
 })
 
 //ANCHOR - Troisième btn pour recommencer le jeu;
@@ -121,8 +120,6 @@ function victoireFunc() {
 
 // ANCHOR - Fonction qui réinitialise le jeu
 function init(){
-    console.log('init');
-    console.log(time);
     btnStart.remove();
     
     app.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
@@ -166,7 +163,7 @@ function init(){
             if(count%2 === 0){
                 nbCoups++
             }
-            console.log(nbCoups)                         // C'est ici plus bas que ca bug je pense 
+                                                            // C'est ici plus bas que ca bug je pense 
             if (element.classList.contains("not-revealed")) { // le bug est present parfois
                 element.classList.remove("not-revealed"); // si je clique tres vite sur les carrés
                 if (!carreChoisi) {                       //y en a trois carré qui reste retourné 
@@ -191,7 +188,7 @@ function init(){
             }
             const win = elements.every(tile => !tile.classList.contains("not-revealed"));
             if (win) {
-                console.log("Toutes les tuiles ont été révélées !");
+                
                 if(time > 100){
                 time-=25;
                 }
@@ -204,15 +201,5 @@ function init(){
 
     
 }
-
-// Promises
-fetch("https://dog.ceo/api/breeds/image/random")
-.then((response) => {
-    return response.json();
-})
-.then((data) => {
-    console.log(data);
-    document.querySelector("#image-chat")?.setAttribute("src", data.message);
-})
 
 
