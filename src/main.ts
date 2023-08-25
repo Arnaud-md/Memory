@@ -7,14 +7,34 @@ const colores = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "
 
 let cptRemise = 0;
 
-let minute = 0
-let seconde = 0
 const divChrono = document.createElement("div") as HTMLDivElement
     divChrono.style.width = "30%"
     divChrono.style.margin = "30px auto"
     divChrono.style.border = "1px solid black"
     divChrono.style.textAlign = "center"
 const chrono = document.createElement("p") as HTMLParagraphElement
+let seconde = 0
+let minute = 0
+
+let intervalID = null
+
+function chronometerCall(){
+    if (intervalID !== null) {
+        clearInterval(intervalID);  
+    }
+    intervalID = setInterval(chronometre, 1000); 
+}
+
+function chronometre(){
+    seconde++;
+
+    if(seconde >= 60){
+        seconde = 0;
+        minute++;
+    }
+
+    chrono.innerHTML = `Durée de la partie : ${minute} : ${seconde}`;
+}
 
 
 const appli = document.querySelector('#app') as HTMLDivElement;
@@ -37,6 +57,8 @@ butnRemise.addEventListener("click", () => {
     compt=0;
     cptRemise++;
     initi();
+    
+
 })
 
 
@@ -89,6 +111,9 @@ const tiles = new Array(16).fill('').map( (_, i) => {
 
 // Add an event listener
 butnStart.addEventListener("click", () => {
+    chronometerCall() 
+        seconde = 0
+    minute = 0
     initi();
 });
 
@@ -96,22 +121,28 @@ const btnReplay = document.createElement("button") as HTMLButtonElement
     btnReplay.textContent = "Recommenceer la partie"
     btnReplay.addEventListener("click", ()=> {      
         partieFait+=1;
+       
         initi();
-        console.log("vous avez appuyé sur le bouton");
+        seconde = 0
+        minute = 0
         
     })
 
+
+ 
+
 function initi(){
-    console.log('init')
+   
+
     butnStart.remove();
     
     appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
     appli.appendChild(btnReplay);
-    appli.appendChild(divChrono)
-        divChrono.appendChild(chrono)
-        chrono.innerHTML = `Durée de la partie : ${minute} : ${seconde}`
+    
     appli.appendChild(jeuDiv);
 
+    appli.appendChild(divChrono)
+    divChrono.appendChild(chrono)
    
     compt++;
     let color1 = "1";
