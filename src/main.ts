@@ -30,6 +30,7 @@ butnRemise.addEventListener("click", () => {
 })
 
 
+
 const jeuDiv = document.createElement('div') as HTMLDivElement;
 jeuDiv.setAttribute("id","jeuDiv");
 jeuDiv.setAttribute("class", "argent");
