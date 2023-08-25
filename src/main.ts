@@ -51,9 +51,6 @@ function chronometerCall(){
     }
     intervalID = setInterval(chronometre, 1000); 
 }
-//const btnStart = document.querySelector("#init-button") as HTMLButtonElement;
-//const butnTile = document.querySelector(".tile") as HTMLButtonElement;
-// Attention aux "as" qui règlent pas mal de soucis
 
 const app = document.querySelector('#app') as HTMLDivElement;
 const body = document.body
@@ -170,11 +167,10 @@ function init(){
             if(count%2 === 0){
                 nbCoups++
             }
-            console.log(nbCoups)                         // C'est ici plus bas que ca bug je pense 
-            if (element.classList.contains("not-revealed")) { // le bug est present parfois
-                element.classList.remove("not-revealed"); // si je clique tres vite sur les carrés
-                if (!carreChoisi) {                       //y en a trois carré qui reste retourné 
-                    carreChoisi = element;                // je viens de penser que ç'arrive uniquement quand t'as deux meme couleurs qui sont tompe parmis les trois carrés, peut être c'est une coincidences 
+            console.log(nbCoups)                         
+            if (element.classList.contains("not-revealed")) {
+                element.classList.remove("not-revealed"); 
+                if (!carreChoisi) {                                         carreChoisi = element;                 
                     propCol = carreChoisi.getAttribute("color")
                 } else {
                     if(propCol === element.getAttribute("color") ) {
