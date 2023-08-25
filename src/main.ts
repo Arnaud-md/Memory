@@ -118,56 +118,6 @@ function victoireFunc() {
     victoire.appendChild(btnReplay);
 }
 
-<<<<<<< HEAD
-// Promises
-fetch("https://dog.ceo/api/breeds/image/random")
-.then((response) => {
-    return response.json();
-})
-.then((data) => {
-    console.log(data);
-    document.querySelector("#image-chat")?.setAttribute("src", data.message);
-})
-
-
-
-// Add an event listener
-//butnStart.addEventListener("click", () => {
-//    initi();
-//});
-
-
-const tiles = new Array(16).fill('').map( (_, i) => {
-    const tile = document.createElement("div")
-    tile.setAttribute("class", "tile")
-    tile.style.width ="50px"
-    tile.style.height = "50px"
-    tile.style.border = "25px 25px 25px 25px"
-    tile.style.backgroundColor = colores[Math.floor(i/2)]
-    return tile
-})
-
-    // Shuffle the tiles
-    tiles.sort( () => Math.random() - 0.5)
-
-    // Add the tiles to the app
-    //tiles.forEach( tile => appli.appendChild(tile))
-
-
-
-function initi(){
-    console.log('init')
-    butnStart.remove();
-    compt++;
-    let color1 = "1";
-    let color2 = "2";
-    appli.appendChild(jeuDiv);
-    appli.appendChild(butnRemise);
-
-    console.log("click1");
-    
-    tiles.forEach( tile => jeuDiv.appendChild(tile));
-=======
 // ANCHOR - Fonction qui réinitialise le jeu
 function init(){
     btnStart.remove();
@@ -191,7 +141,6 @@ function init(){
     });
     // Shuffle the tiles
     tiles.sort( () => Math.random() - 0.5);
->>>>>>> release_V_2.0
 
     // Clear previous tiles in jeuDiv
     jeuDiv.innerHTML = '';
