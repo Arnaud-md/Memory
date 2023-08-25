@@ -5,10 +5,10 @@ let time = 500;
 const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
 
 const divChrono = document.createElement("div") as HTMLDivElement
-    divChrono.style.width = "30%"
-    divChrono.style.margin = "30px auto"
-    divChrono.style.border = "1px solid black"
-    divChrono.style.textAlign = "center"
+divChrono.style.width = "30%"
+divChrono.style.margin = "30px auto"
+divChrono.style.border = "1px solid black"
+divChrono.style.textAlign = "center"
 const chrono = document.createElement("p") as HTMLParagraphElement
 let seconde = 0
 let minute = 0
@@ -51,10 +51,8 @@ function chronometerCall(){
     }
     intervalID = setInterval(chronometre, 1000); 
 }
-//const btnStart = document.querySelector("#init-button") as HTMLButtonElement;
-//const butnTile = document.querySelector(".tile") as HTMLButtonElement;
-// Attention aux "as" qui règlent pas mal de soucis
 
+// Attention aux "as" qui règlent pas mal de soucis
 const app = document.querySelector('#app') as HTMLDivElement;
 const body = document.body
 const head = document.querySelector("#col") as HTMLDivElement
@@ -74,20 +72,19 @@ app.appendChild(btnStart);
 
 // ANCHOR - Deuxieme Button(recommencer le jeu)
 const btnReplay = document.createElement("button") as HTMLButtonElement
-    btnReplay.textContent = "Recommenceer la partie"
-    btnReplay.addEventListener("click", ()=> {      
-        partieFait+=1;
-        init();
-        seconde = 0
-        minute = 0
-        console.log("vous avez appuyé sur le bouton");
-        
-    })
+btnReplay.textContent = "Recommenceer la partie"
+btnReplay.addEventListener("click", ()=> {      
+    partieFait+=1;
+    init();
+    seconde = 0
+    minute = 0
+    console.log("vous avez appuyé sur le bouton");       
+})
 
 //ANCHOR - Troisième btn pour recommencer le jeu;
 const remiseBtnStart = document.createElement("button") as HTMLButtonElement;
-    remiseBtnStart.textContent = "Récommencer le jeu";
-    remiseBtnStart.addEventListener("click", () => {
+remiseBtnStart.textContent = "Récommencer le jeu";
+remiseBtnStart.addEventListener("click", () => {
     nb_remise++;
     nbCoups = 0;
     init();
@@ -144,7 +141,6 @@ function init(){
         tile.style.margin = "20px";
         tile.classList.add(colors[Math.floor(i / 2)]);
         return tile;
-
     });
     // Shuffle the tiles
     tiles.sort( () => Math.random() - 0.5);
