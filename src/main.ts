@@ -7,6 +7,16 @@ const colores = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "
 
 let cptRemise = 0;
 
+let minute = 0
+let seconde = 0
+const divChrono = document.createElement("div") as HTMLDivElement
+    divChrono.style.width = "30%"
+    divChrono.style.margin = "30px auto"
+    divChrono.style.border = "1px solid black"
+    divChrono.style.textAlign = "center"
+const chrono = document.createElement("p") as HTMLParagraphElement
+
+
 const appli = document.querySelector('#app') as HTMLDivElement;
 const body = document.body
 const head = document.querySelector("#col") as HTMLDivElement
@@ -97,14 +107,18 @@ function initi(){
     
     appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
     appli.appendChild(btnReplay);
+    appli.appendChild(divChrono)
+        divChrono.appendChild(chrono)
+        chrono.innerHTML = `Durée de la partie : ${minute} : ${seconde}`
     appli.appendChild(jeuDiv);
+
    
     compt++;
     let color1 = "1";
     let color2 = "2";
     let couleur=colores;
     appli.appendChild(jeuDiv);
-    appli.appendChild(butnRemise);
+    //appli.appendChild(butnRemise);
 
     console.log("click1");
     
