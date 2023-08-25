@@ -51,15 +51,15 @@ h1 {
   padding: 2rem;
   text-align: center;
   display: flex;
-  flex-direction:row;
+  flex-direction:column;
 }
 
-.logo {
+/*.logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
-}
+}*/
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -92,6 +92,44 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+/*ANCHOR - card */
+.tile{
+  margin: 10px;
+  border-radius: 10px;
+}
+.red{
+  background: #f50808;
+} 
+.blue{
+  background:  #002efe;
+}
+.green{
+  background: #64fe00;
+}
+.yellow{
+  background: #fefb00;
+}
+.orange{
+  background: #FF5733;
+} 
+.purple{
+  background:  #fe00e7;
+} 
+.pink{
+  background: #f978a5;
+} 
+.brown{
+  background: #6e2c00;
+}
+
+.not-revealed{
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(#8B008B, #483D8B);
+  background-size: 200% 200%;
+  animation: neon-violet-tile 3s ease-in-out infinite;
 }
 
 @media (prefers-color-scheme: light) {
