@@ -15,26 +15,46 @@ const divChrono = document.createElement("div") as HTMLDivElement
 const chrono = document.createElement("p") as HTMLParagraphElement
 let seconde = 0
 let minute = 0
+let secondes = `00`
+let minutes = `00`
+let intervalID = 0
 
-let intervalID = null
+
+function chronometre(){
+    seconde++;
+
+    if(seconde<10){
+        secondes = `0` + seconde
+    }
+    if(seconde>10){
+        secondes = seconde.toString()
+    }
+
+    if(seconde > 59){
+        seconde = 0;
+        minute++;
+    
+    }
+
+
+    if(minute<10){
+        minutes = `0` + minute
+    }
+    if(minute>10){
+        minutes = minute.toString()
+    }
+    
+
+    chrono.innerHTML = `Durée de la partie : ${minutes} : ${secondes}`;
+}
 
 function chronometerCall(){
-    if (intervalID !== null) {
+    if (intervalID !== 0) {
         clearInterval(intervalID);  
     }
     intervalID = setInterval(chronometre, 1000); 
 }
 
-function chronometre(){
-    seconde++;
-
-    if(seconde >= 60){
-        seconde = 0;
-        minute++;
-    }
-
-    chrono.innerHTML = `Durée de la partie : ${minute} : ${seconde}`;
-}
 
 
 const appli = document.querySelector('#app') as HTMLDivElement;
