@@ -1,11 +1,8 @@
-let compt = 0;
 let partieFait = 0;
+let nbCoups = 0;
+let nb_remise = 0;
+let time = 500;
 const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
-//const butnStart = document.querySelector("#init-button") as HTMLButtonElement;
-//const butnTile = document.querySelector(".tile") as HTMLButtonElement;
-// Attention aux "as" qui règlent pas mal de soucis
-
-let cptRemise = 0;
 
 const divChrono = document.createElement("div") as HTMLDivElement
     divChrono.style.width = "30%"
@@ -54,32 +51,49 @@ function chronometerCall(){
     }
     intervalID = setInterval(chronometre, 1000); 
 }
+//const btnStart = document.querySelector("#init-button") as HTMLButtonElement;
+//const butnTile = document.querySelector(".tile") as HTMLButtonElement;
+// Attention aux "as" qui règlent pas mal de soucis
 
-
-
-const appli = document.querySelector('#app') as HTMLDivElement;
+const app = document.querySelector('#app') as HTMLDivElement;
 const body = document.body
 const head = document.querySelector("#col") as HTMLDivElement
 
+// ANCHOR - Premier Button(commencer le jeu)
+const btnStart = document.createElement('button') as HTMLButtonElement;
+btnStart.innerText = "Commencer la partie";
+btnStart.addEventListener("click", () => {
+    chronometerCall() 
+    seconde = 0
+    minute = 0
+    nbCoups = 0;
+    init();
+});
 
-const butnStart = document.createElement('button') as HTMLButtonElement;
-butnStart.innerText = "Commencer la partie";
+app.appendChild(btnStart);
 
-appli.appendChild(butnStart);
+// ANCHOR - Deuxieme Button(recommencer le jeu)
+const btnReplay = document.createElement("button") as HTMLButtonElement
+    btnReplay.textContent = "Recommenceer la partie"
+    btnReplay.addEventListener("click", ()=> {      
+        partieFait+=1;
+        init();
+        seconde = 0
+        minute = 0
+        console.log("vous avez appuyé sur le bouton");
+        
+    })
 
-const butnRemise = document.createElement("button") as HTMLButtonElement;
+//ANCHOR - Troisième btn pour recommencer le jeu;
+const remiseBtnStart = document.createElement("button") as HTMLButtonElement;
+    remiseBtnStart.textContent = "Récommencer le jeu";
+    remiseBtnStart.addEventListener("click", () => {
+    nb_remise++;
+    nbCoups = 0;
+    init();
+});
 
-butnRemise.innerText = "recommencer le jeu";
-butnRemise.addEventListener("click", () => {
-    compt=0;
-    cptRemise++;
-    initi();
-    
-
-})
-
-
-
+//ANCHOR - La div qui contient le jeu
 const jeuDiv = document.createElement('div') as HTMLDivElement;
 jeuDiv.setAttribute("id","jeuDiv");
 jeuDiv.setAttribute("class", "argent");
@@ -89,6 +103,111 @@ jeuDiv.style.display = "flex";
 jeuDiv.style.border = "1px solid black";
 jeuDiv.style.flexWrap = "wrap";
 jeuDiv.style.justifyContent = "space-between";
+
+//ANCHOR - Victoire - La div qui apparait en remplaçant jeuDiv une fois le jeu terminé + fonction
+const victoire = document.createElement("div") as HTMLDivElement
+victoire.setAttribute("id", "victoire")
+victoire.setAttribute("class", "argent")
+
+function victoireFunc() {
+    jeuDiv.remove()
+    remiseBtnStart.remove()
+    app.appendChild(victoire)
+    victoire.innerHTML = `
+        <h1>Bravo!</h1>
+        <h2>Vous avez gagné</h2>
+        <p>Vous avez fait ${nbCoups} coups pour gagner.</p>
+        <p>Vous avez joué ${partieFait} fois.</p>   
+        `
+    victoire.appendChild(btnReplay);
+}
+
+// ANCHOR - Fonction qui réinitialise le jeu
+function init(){
+    console.log('init');
+    console.log(time);
+    btnStart.remove();
+    
+    app.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
+    app.appendChild(jeuDiv);
+    app.appendChild(btnReplay);
+    app.appendChild(divChrono)
+    divChrono.appendChild(chrono)
+    // ANCHOR - Creation des carte avec des couleur
+    const tiles = new Array(16).fill('').map((_, i) => {
+        const tile = document.createElement("div");
+        tile.setAttribute("class", "tile not-revealed");
+        tile.setAttribute("color", colors[Math.floor(i / 2)]);
+        tile.style.width = "50px";
+        tile.style.height = "50px";
+        tile.style.border = "1px solid black";
+        tile.style.margin = "20px";
+        tile.classList.add(colors[Math.floor(i / 2)]);
+        return tile;
+
+    });
+    // Shuffle the tiles
+    tiles.sort( () => Math.random() - 0.5);
+
+    // Clear previous tiles in jeuDiv
+    jeuDiv.innerHTML = '';
+
+    // Add the tiles to the jeuDiv
+    tiles.forEach( tile => jeuDiv.appendChild(tile));
+
+    // On selection les tiles pour boucler dessus
+    let nodeList = document.querySelectorAll(".tile");
+    let elements = Array.from(nodeList);
+
+    let carreChoisi:any = null;
+    let propCol:any = null;
+    let count = 0;
+
+    // Ajout de l'ecouteur d'evenement click aux tiles
+    elements.forEach( (element, i) => {
+        element.addEventListener("click", () => {
+            count++
+            if(count%2 === 0){
+                nbCoups++
+            }
+            console.log(nbCoups)                         // C'est ici plus bas que ca bug je pense 
+            if (element.classList.contains("not-revealed")) { // le bug est present parfois
+                element.classList.remove("not-revealed"); // si je clique tres vite sur les carrés
+                if (!carreChoisi) {                       //y en a trois carré qui reste retourné 
+                    carreChoisi = element;                // je viens de penser que ç'arrive uniquement quand t'as deux meme couleurs qui sont tompe parmis les trois carrés, peut être c'est une coincidences 
+                    propCol = carreChoisi.getAttribute("color")
+                } else {
+                    if(propCol === element.getAttribute("color") ) {
+                        element.classList.add("revealed")
+                        carreChoisi = null;
+                        propCol = null;
+                    } else {
+                        setTimeout(() => {
+                            carreChoisi.classList.add("not-revealed");
+                            element.classList.add("not-revealed");
+                            carreChoisi = null;
+                            propCol = null;
+                            
+                        }, time);
+                    }
+                }
+           
+            }
+            const win = elements.every(tile => !tile.classList.contains("not-revealed"));
+            if (win) {
+                console.log("Toutes les tuiles ont été révélées !");
+                if(time > 100){
+                time-=25;
+                }
+                partieFait++;
+                victoireFunc();
+            } 
+        });
+        
+    }); 
+
+    
+}
 
 // Promises
 fetch("https://dog.ceo/api/breeds/image/random")
@@ -100,146 +219,4 @@ fetch("https://dog.ceo/api/breeds/image/random")
     document.querySelector("#image-chat")?.setAttribute("src", data.message);
 })
 
-const tiles = new Array(16).fill('').map( (_, i) => {
-    const tile = document.createElement("div")
-    tile.setAttribute("class", "tile")
-    tile.style.width ="50px"
-    tile.style.height = "50px"
-    tile.style.margin = "25px 25px 25px 25px";
-    tile.style.backgroundColor = colors[Math.floor(i/2)]
-    return tile
-})
-
-// Shuffle the tiles
-tiles.sort( () => Math.random() - 0.5)
-
-// Add an event listener
-butnStart.addEventListener("click", () => {
-    chronometerCall() 
-        seconde = 0
-    minute = 0
-    initi();
-});
-
-const btnReplay = document.createElement("button") as HTMLButtonElement
-    btnReplay.textContent = "Recommenceer la partie"
-    btnReplay.addEventListener("click", ()=> {      
-        partieFait+=1;
-       
-        initi();
-        seconde = 0
-        minute = 0
-        
-    })
-
-
- 
-
-function initi(){
-   
-
-    butnStart.remove();
-    
-    appli.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
-    appli.appendChild(btnReplay);
-    
-    appli.appendChild(jeuDiv);
-
-    appli.appendChild(divChrono)
-    divChrono.appendChild(chrono)
-   
-    compt++;
-    let color1 = "1";
-    let color2 = "2";
-    let couleur=colors;
-    appli.appendChild(jeuDiv);
-    //appli.appendChild(butnRemise);
-
-    console.log("click1");
-    
-    for(let j=0;j<tiles.length;j++) {
-        if(tiles[j].style.backgroundColor == "white") {
-            tiles[j].style.backgroundColor = couleur[j];
-            console.log(couleur[j]);
-            
-        }
-    }
-// Add the tiles to the app
-    tiles.forEach( tile => jeuDiv.appendChild(tile));
-
-    let nodeList = document.querySelectorAll(".tile");
-    let elements = Array.from(nodeList);
-    elements.forEach( (element) => {
-
-        element.setAttribute("class", "not-revealed")
-        
-        element.addEventListener("click", () => {
-            element.setAttribute("class", "revealed");
-
-            let index = getIndex(tiles);
-
-            if (index!=-1) {
-                couleur[index]=tiles[index].style.backgroundColor;
-                tiles[index].style.backgroundColor = "white";
-            }
-        })
-
-    })
-    
-}
-
-function showColor(tiles:Array<HTMLDivElement>) {
-    for (let i=0;i<tiles.length;i++) {
-        if (tiles[i].className=="revealed") {
-            appli.innerHTML = '<p>' + tiles[i].style.backgroundColor+'</p>';
-        }
-    }
-}
-
-
-function getColor(tiles:Array<HTMLDivElement>) {
-
-    let clr = "";
-    for (let i=0;i<tiles.length;i++) {
-        if (tiles[i].className=="revealed") {
-            clr = tiles[i].style.backgroundColor; 
-        }
-    }
-    return clr;
-}
-
-function getColor2(tiles:Array<HTMLDivElement>) {
-
-    let clr = "";
-    for (let i=0;i<tiles.length;i++) {
-        if (tiles[i].className=="revealed2") {
-            clr = tiles[i].style.backgroundColor; 
-        }
-    }
-    return clr;
-}
-
-function getIndex(tiles:Array<HTMLDivElement>) {
-    ///    console.log('toto')
-    let j = -1;
-    for (let i=0;i<tiles.length;i++) {
-        if (tiles[i].className=="revealed") {
-            j=i; 
-        }
-    }
-    return j;
-    console.log(j);
-    
-}
-
-function getIndex2(tiles:Array<HTMLDivElement>) {
-    ///    console.log('toto')
-    let j = -1;
-    for (let i=0;i<tiles.length;i++) {
-        if (tiles[i].className=="revealed2") {
-            j=i; 
-        }
-    }
-    return j;
-}
 
