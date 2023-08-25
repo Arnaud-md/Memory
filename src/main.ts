@@ -3,6 +3,54 @@ let nbCoups = 0;
 let nb_remise = 0;
 let time = 500;
 const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
+
+const divChrono = document.createElement("div") as HTMLDivElement
+    divChrono.style.width = "30%"
+    divChrono.style.margin = "30px auto"
+    divChrono.style.border = "1px solid black"
+    divChrono.style.textAlign = "center"
+const chrono = document.createElement("p") as HTMLParagraphElement
+let seconde = 0
+let minute = 0
+let secondes = `00`
+let minutes = `00`
+let intervalID = 0
+
+
+function chronometre(){
+    seconde++;
+
+    if(seconde<10){
+        secondes = `0` + seconde
+    }
+    if(seconde>10){
+        secondes = seconde.toString()
+    }
+
+    if(seconde > 59){
+        seconde = 0;
+        minute++;
+    
+    }
+
+
+    if(minute<10){
+        minutes = `0` + minute
+    }
+    if(minute>10){
+        minutes = minute.toString()
+    }
+    
+
+    chrono.innerHTML = `Durée de la partie : ${minutes} : ${secondes}`;
+}
+
+function chronometerCall(){
+    if (intervalID !== 0) {
+        clearInterval(intervalID);  
+    }
+    intervalID = setInterval(chronometre, 1000); 
+}
 //const btnStart = document.querySelector("#init-button") as HTMLButtonElement;
 //const butnTile = document.querySelector(".tile") as HTMLButtonElement;
 // Attention aux "as" qui règlent pas mal de soucis
@@ -15,6 +63,9 @@ const head = document.querySelector("#col") as HTMLDivElement
 const btnStart = document.createElement('button') as HTMLButtonElement;
 btnStart.innerText = "Commencer la partie";
 btnStart.addEventListener("click", () => {
+    chronometerCall() 
+    seconde = 0
+    minute = 0
     nbCoups = 0;
     init();
 });
@@ -27,6 +78,8 @@ const btnReplay = document.createElement("button") as HTMLButtonElement
     btnReplay.addEventListener("click", ()=> {      
         partieFait+=1;
         init();
+        seconde = 0
+        minute = 0
         console.log("vous avez appuyé sur le bouton");
         
     })
@@ -78,7 +131,8 @@ function init(){
     app.innerHTML = `<p>Vous avez fait ${partieFait} partie(s)</p>`
     app.appendChild(jeuDiv);
     app.appendChild(btnReplay);
-
+    app.appendChild(divChrono)
+    divChrono.appendChild(chrono)
     // ANCHOR - Creation des carte avec des couleur
     const tiles = new Array(16).fill('').map((_, i) => {
         const tile = document.createElement("div");
