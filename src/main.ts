@@ -157,7 +157,7 @@ function init(){
     let count = 0;
 
     // Ajout de l'ecouteur d'evenement click aux tiles
-    elements.forEach( (element, i) => {
+    elements.forEach( (element) => {
         element.addEventListener("click", () => {
             count++
             if(count%2 === 0){
