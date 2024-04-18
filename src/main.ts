@@ -5,11 +5,15 @@ let time = 500;
 const colors = ["red", "blue", "green", "yellow", "orange", "purple", "pink", "brown"];
 
 const divChrono = document.createElement("div") as HTMLDivElement
-divChrono.style.width = "30%"
+divChrono.style.width = "20%"
+divChrono.style.height = "240px"
 divChrono.style.margin = "30px auto"
 divChrono.style.border = "1px solid black"
+divChrono.style.borderRadius = "800px";
 divChrono.style.textAlign = "center"
+divChrono.style.paddingTop= "110px"
 const chrono = document.createElement("p") as HTMLParagraphElement
+chrono.setAttribute("class","chrono_bottom");
 let seconde = 0
 let minute = 0
 let secondes = `00`
@@ -60,6 +64,8 @@ const head = document.querySelector("#col") as HTMLDivElement
 // ANCHOR - Premier Button(commencer le jeu)
 const btnStart = document.createElement('button') as HTMLButtonElement;
 btnStart.innerText = "Commencer la partie";
+btnStart.setAttribute("class","btn btn-success rounded-pill px-3");
+btnStart.setAttribute("id","button_width");
 btnStart.addEventListener("click", () => {
     chronometerCall() 
     seconde = 0
@@ -73,6 +79,8 @@ app.appendChild(btnStart);
 // ANCHOR - Deuxieme Button(recommencer le jeu)
 const btnReplay = document.createElement("button") as HTMLButtonElement
 btnReplay.textContent = "Recommenceer la partie"
+btnReplay.setAttribute("class","btn btn-warning rounded-pill px-3");
+btnReplay.setAttribute("id","button_position");
 btnReplay.addEventListener("click", ()=> {      
     partieFait+=1;
     init();
@@ -115,7 +123,7 @@ function victoireFunc() {
         <p>Vous avez fait ${nbCoups} coups pour gagner.</p>
         <p>Vous avez joué ${partieFait} fois.</p>   
         `
-    victoire.appendChild(btnReplay);
+    app.appendChild(btnReplay);
 }
 
 // ANCHOR - Fonction qui réinitialise le jeu

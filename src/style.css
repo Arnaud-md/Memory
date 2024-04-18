@@ -1,5 +1,10 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+@font-face {
+  font-family: "Smile";
+  src: url('Smile.otf');
+}
+
+ :root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif,smile;
   line-height: 1.5;
   font-weight: 400;
 
@@ -12,7 +17,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
+} 
 
 a {
   font-weight: 500;
@@ -22,10 +27,30 @@ a {
 a:hover {
   color: #535bf2;
 }
+#button_width {
+  width:200px;
+}
+#button_position {
+  width:500px;
+  margin-left: 29%;
+}
+.chrono_bottom {
+  text-align: center;
+}
 
-col {
+#h {
+  
+}
+#col {
   display: flex;
   flex-direction:column;
+
+  text-align: center;
+  font-family: "smile";
+  font-size: 124 px;
+  /* margin-left:40%;
+  margin-right: 40%; */
+  
 }
 
 body {
@@ -36,12 +61,20 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-  color : white;
-  background:#213547;
-  padding-left:50%;
-  padding-right:50%;
+  /* font-size: 3.2em; */
+  /* line-height: 1.1; */
+  /* color : white; */
+  /* background:#213547; */
+  color:black;
+  /* padding-left:50%; */
+  /* padding-right:50%; */
+  text-align: center;
+  font-family: "smile";
+  font-size: 124 px;
+  /* border:1px solid black; */
+  margin-left:40%;
+  margin-right: 40%;
+
   
 }
 
